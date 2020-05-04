@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AttendanceResolverService } from './services/attendance-resolver.service';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
+  {
+    path: 'dashboard', 
+    component: DashboardComponent,
+    resolve: {
+      teamAttendance: AttendanceResolverService
+    }
+  },
   {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 

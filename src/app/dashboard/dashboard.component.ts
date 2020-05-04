@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'team-dashboard',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) {
+    
+  }
 
   ngOnInit(): void {
+    console.log(this.activatedRoute.snapshot.data);
   }
 
 }
