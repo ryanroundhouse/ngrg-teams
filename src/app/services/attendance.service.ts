@@ -1,39 +1,55 @@
 import { Injectable } from '@angular/core';
-import { Attendee } from '../interfaces/attendee'
-import { Presence } from '../interfaces/presence'
+import { Attendance } from '../interfaces/attendance';
+import { PersonAttendance } from '../interfaces/person-attendance';
+import { GameService } from './game.service';
+import { TeamService } from './team.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  _teamAttendance: Attendee[] = [
+  _personAttendance: PersonAttendance[] = [
     {
-      id: 1,
-      name: 'Ryan',
-      attendance: [
-        { date: '10-May', presence: 'In' },
-        { date: '17-May', presence: 'In' },
-        { date: '24-May', presence: 'In' },
-        { date: '31-May', presence: 'In' },
-        { date: '7-Jun', presence: 'In' }
+      person: {
+        id: 0,
+        name: "Ryan G",
+        email: "rg@ryangraham.ca"
+      },
+      attendanceList:[
+        {
+          gameId: 0,
+          date: "5/12/2020",
+          presence: "In",
+          message: null
+        },
+        {
+          gameId: 1,
+          date: "5/19/2020",
+          presence: "Out",
+          message: "busy"
+        }
       ]
     },
     {
-      id: 2,
-      name: 'Katie',
-      attendance: [
-        { date: '10-May', presence: 'Out' },
-        { date: '17-May', presence: 'Out' },
-        { date: '24-May', presence: 'Out' },
-        { date: '31-May', presence: 'Out' },
-        { date: '7-Jun', presence: 'Out' }
+      person: {
+        id: 1,
+        name: "Katie G",
+        email: "kt@ryangraham.ca"
+      },
+      attendanceList:[
+        {
+          gameId: 1,
+          date: "5/19/2020",
+          presence: "Out",
+          message: "no change"
+        }
       ]
     },
   ]
-  
+
   constructor() { }
 
-  get teamAttendance(): Attendee[]{
-    return this._teamAttendance;
+  getAttendanceByTeamId(id: number): PersonAttendance[]{
+    return this._personAttendance;
   }
 }

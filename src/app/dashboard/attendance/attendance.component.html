@@ -1,55 +1,15 @@
-<p>attendance works!</p>
+<p>{{dashboardData.team.name}}</p>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Player</th>
-            <th scope="col">10-May</th>
-            <th scope="col">17-May</th>
-            <th scope="col">24-May</th>
-            <th scope="col">31-May</th>
-            <th scope="col">7-Jun</th>
+            <th scope="col">Team Member</th>
+            <th scope="col" *ngFor="let game of dashboardData.games">{{game.date}}</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">Ryan</th>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-        </tr>
-        <tr>
-            <th scope="row">Katie</th>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-        </tr>
-        <tr>
-            <th scope="row">Crowley</th>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-        </tr>
-        <tr>
-            <th scope="row">Odin</th>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-        </tr>
-        <tr>
-            <th scope="row">Cyrus</th>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
-            <td>In</td>
+        <tr *ngFor="let attendance of dashboardData.attendance">
+            <td scope="row">{{attendance.person.name}}</td>
+            <td scope="row" *ngFor="let attendance of attendance.attendanceList">{{attendance.presence}}</td>
         </tr>
     </tbody>
 </table>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AttendanceResolverService } from './services/attendance-resolver.service';
+import { DashboardResolverService } from './resolvers/dashboard-resolver.service';
 
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'dashboard', 
     component: DashboardComponent,
     resolve: {
-      teamAttendance: AttendanceResolverService
+      dashboardData: DashboardResolverService
     }
   },
   {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}

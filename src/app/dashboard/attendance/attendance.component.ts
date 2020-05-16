@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AttendanceService } from 'src/app/services/attendance.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { DashboardData } from 'src/app/interfaces/dashboard-data';
 
 @Component({
   selector: 'team-attendance',
@@ -7,10 +7,12 @@ import { AttendanceService } from 'src/app/services/attendance.service';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
+  @Input() dashboardData: DashboardData;
 
-  constructor(private attendanceService: AttendanceService) { }
+  constructor() { }
 
   ngOnInit(): void {
+    console.debug(this.dashboardData);
   }
 
 }
