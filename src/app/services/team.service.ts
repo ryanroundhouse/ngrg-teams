@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../interfaces/team';
+import { Membership } from '../interfaces/membership';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,18 @@ export class TeamService {
 
   getTeamById(id: number): Team{
     return this._team;
+  }
+
+  addTeamMember(name: string, email: string, teamId: number){
+    let newMember : Membership = {
+      person: {
+        id: null,
+        name: name,
+        email: email
+      },
+      role: "Member"
+    }
+    console.log(`adding new member ${name}`);
+    this._team.members.push(newMember);
   }
 }
