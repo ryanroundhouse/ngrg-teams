@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TeamService } from 'src/app/services/team.service';
+import { Router } from '@angular/router';
+import { Membership } from 'src/app/interfaces/membership';
 
 @Component({
   selector: 'team-admin-panel',
@@ -8,9 +10,11 @@ import { TeamService } from 'src/app/services/team.service';
   styleUrls: ['./admin-panel.component.scss']
 })
 export class AdminPanelComponent implements OnInit {
-  newMemberForm;
+  public newMemberForm;
+  @Output()
+  teamMemberAdded: EventEmitter<Membership> = new EventEmitter<Membership>();
 
-  constructor(private formBuilder: FormBuilder, public teamService: TeamService) {
+  constructor(private formBuilder: FormBuilder, public teamService: TeamService, private router: Router) {
     this.newMemberForm = this.formBuilder.group({
       newMemberName: '',
       newMemberEmail: ''
@@ -21,9 +25,18 @@ export class AdminPanelComponent implements OnInit {
   }
 
   onSubmitNewMember(newMemberData){
-    console.log('new member add request received');
     console.log(newMemberData);
-    this.teamService.addTeamMember(newMemberData.newMemberName, newMemberData.newMemberEmail, 0);
+    let newMember : Membership = {
+      person: {
+        id: null,
+        name: newMemberData.newMemberName,
+        email: newMemberData.newMemberEmail
+      },
+      role: "Member"
+    }
+    this.teamService.addTeamMember(newMember);
+    this.teamMemberAdded.emit(newMember);
+    this.newMemberForm.reset();
   }
 
 }

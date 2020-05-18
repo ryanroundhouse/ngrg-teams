@@ -14,7 +14,7 @@ export class DashboardResolverService implements Resolve<any> {
 
   constructor(private teamService: TeamService, private attendanceService: AttendanceService, private gameService: GameService) { }
 
-  resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
+  generateDashboardData(): DashboardData{
     let team = this.teamService.getTeamById(0);
     let games = this.gameService.getGamesByTeamId(0);
     let attendance = this.attendanceService.getAttendanceByTeamId(0);
@@ -58,6 +58,11 @@ export class DashboardResolverService implements Resolve<any> {
       games: games,
       attendance: attendance
     }
+
     return dashboardData;
+  }
+
+  resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
+    return this.generateDashboardData();
   }
 }

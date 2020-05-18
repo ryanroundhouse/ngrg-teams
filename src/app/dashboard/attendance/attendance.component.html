@@ -7,7 +7,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let attendance of dashboardData.attendance">
+        <tr *ngFor="let attendance of dashboardData.attendance; let last = last">
             <td scope="row">{{attendance.person.name}}</td>
             <td scope="row" *ngFor="let attendance of attendance.attendanceList">{{attendance.presence}}</td>
         </tr>
