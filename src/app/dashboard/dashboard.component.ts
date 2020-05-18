@@ -28,4 +28,9 @@ export class DashboardComponent implements OnInit {
     this.dashboardData = this.dashboardResolver.generateDashboardData();
   }
 
+  gameAddedReceived(newGame: Game){
+    console.log(`game added event received.  Now there should be ${this.dashboardData.games.length}`);
+    this.dashboardData = this.dashboardResolver.generateDashboardData();
+  }
+
 }

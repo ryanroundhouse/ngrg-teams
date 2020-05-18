@@ -23,4 +23,9 @@ export class GameService {
   getGamesByTeamId(id: number){
     return this._games;
   }
+
+  addGame(game: Game){
+    game.id = this._games.length;
+    this._games.push(game);
+  }
 }
