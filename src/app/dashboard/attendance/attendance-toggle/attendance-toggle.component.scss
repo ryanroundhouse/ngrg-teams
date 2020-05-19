@@ -15,4 +15,11 @@
  .switch-toggle input:checked + label {
    background: green;
    color: #fff;
+   border-radius: .25rem;
  }
+.switch-toggle input:checked.out + label{
+  background: red;
+}
+.switch-toggle input:checked.unknown + label{
+  background: darkgray;
+}
