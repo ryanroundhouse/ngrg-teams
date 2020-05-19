@@ -9,7 +9,9 @@
     <tbody>
         <tr *ngFor="let attendance of dashboardData.attendance; let last = last">
             <td scope="row">{{attendance.person.name}}</td>
-            <td scope="row" *ngFor="let attendance of attendance.attendanceList">{{attendance.presence}}</td>
+            <td scope="row" *ngFor="let attendanceEntry of attendance.attendanceList">
+                <team-attendance-toggle [personId]="attendance.person.id" [gameId]="attendanceEntry.gameId" [selected]="attendanceEntry.presence" ></team-attendance-toggle>
+            </td>
         </tr>
     </tbody>
 </table>

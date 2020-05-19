@@ -1,0 +1,10 @@
+<div id="div-{{personId}}-{{gameId}}" class="switch-toggle switch-3 switch-candy">
+    <input id="in-{{personId}}-{{gameId}}" name="state-{{personId}}-{{gameId}}" type="radio" value="In" [checked]="selected == 'In'" (change)="attendanceSelected($event)"/>
+    <label for="in-{{personId}}-{{gameId}}" onclick="">IN</label>
+
+    <input id="unknown-{{personId}}-{{gameId}}" name="state-{{personId}}-{{gameId}}" type="radio" value="?" [checked]="selected == '?'" (change)="attendanceSelected($event)"/>
+    <label for="unknown-{{personId}}-{{gameId}}" class="disabled" onclick=""> ? </label>
+
+    <input id="out-{{personId}}-{{gameId}}" name="state-{{personId}}-{{gameId}}" type="radio" value="Out" [checked]="selected == 'Out'" (change)="attendanceSelected($event)"/>
+    <label for="out-{{personId}}-{{gameId}}" onclick="">OUT</label>
+</div>

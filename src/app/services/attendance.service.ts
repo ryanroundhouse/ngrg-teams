@@ -52,4 +52,11 @@ export class AttendanceService {
   getAttendanceByTeamId(id: number): PersonAttendance[]{
     return this._personAttendance;
   }
+
+  updateAttendanceByPersonByGame(personId: number, gameId: number, presence: string){
+    console.log(`setting ${personId}'s ${gameId} game to ${presence}`);
+    this._personAttendance.find(personAttendance => personAttendance.person.id === personId).attendanceList
+      .find(attendanceItem => attendanceItem.gameId === gameId).presence = presence;
+    console.log(this._personAttendance);
+  }
 }

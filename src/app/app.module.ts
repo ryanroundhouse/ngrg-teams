@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AttendanceComponent } from './dashboard/attendance/attendance.component';
 import { AdminPanelComponent } from './dashboard/admin-panel/admin-panel.component';
+import { AttendanceToggleComponent } from './dashboard/attendance/attendance-toggle/attendance-toggle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     AttendanceComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AttendanceToggleComponent
   ],
   imports: [
     BrowserModule,
