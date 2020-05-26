@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TeamService } from 'src/app/services/team.service';
-import { Router } from '@angular/router';
 import { Membership } from 'src/app/interfaces/membership';
 import { Game } from 'src/app/interfaces/game';
 import { GameService } from 'src/app/services/game.service';
+declare var jQuery: any;
 
 @Component({
   selector: 'team-admin-panel',
@@ -31,13 +31,26 @@ export class AdminPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    (function ($) {
+      $(document).ready(function(){
+        $('#newGameDate').datepicker({
+          "autoclose": true,
+          "assumeNearbyYear": true
+         });
+      });
+    })(jQuery);
   }
 
   onSubmitNewGame(newGameData){
+    let gameDate: Date = null;
+    gameDate = (function ($){
+      return $('#newGameDate').datepicker('getDate');
+      //return ((longDate.getMonth() + 1) + "/" +  longDate.getDate() + "/" +  longDate.getFullYear());
+    })(jQuery);
     console.log(newGameData);
     let newGame : Game = {
       id: null,
-      date: newGameData.newGameDate,
+      date: gameDate,
       time: newGameData.newGameTime
     };
     this.gameService.addGame(newGame);

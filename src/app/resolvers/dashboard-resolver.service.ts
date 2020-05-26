@@ -47,11 +47,11 @@ export class DashboardResolverService implements Resolve<any> {
 
     //sort all attendance by date
     attendance.forEach(attendee => {
-      attendee.attendanceList.sort((a,b) => a.date.localeCompare(b.date));
+      attendee.attendanceList.sort((a,b) => a.date.getTime() - b.date.getTime());
     })
 
     //sort all games by date
-    games.sort((a,b) => a.date.localeCompare(b.date));
+    games.sort((a,b) => a.date.getTime() - b.date.getTime());
 
     let dashboardData : DashboardData = {
       team: team,

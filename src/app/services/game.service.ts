@@ -8,12 +8,12 @@ export class GameService {
   _games: Game[] = [
     {
       id: 0, 
-      date: "5/12/2020", 
+      date: new Date("Tue May 12 2020 00:00:00 GMT-0400 (Eastern Daylight Time)"), 
       time: "8:00pm"
     },
     {
       id: 1, 
-      date: "5/19/2020", 
+      date: new Date("Tue May 19 2020 00:00:00 GMT-0400 (Eastern Daylight Time)"), 
       time: "8:00pm"
     }
   ];

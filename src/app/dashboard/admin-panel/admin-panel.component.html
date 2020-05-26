@@ -2,14 +2,14 @@
 
 <form [formGroup]="newGameForm" (ngSubmit)="onSubmitNewGame(newGameForm.value)">
     <h4>Add a new Game</h4>
-    <div class="form-group">
+    <div class="form-group date">
         <label for="newGameDate">Game Date</label>
-        <input type="textbox" class="form-control" id="newGameDate" aria-describedby="newGameDateHelp" placeholder="5/31/2020" formControlName="newGameDate">
+        <input type="textbox" class="form-control date" data-provide="datepicker" id="newGameDate" aria-describedby="newGameDateHelp" placeholder="5/31/2020" formControlName="newGameDate">
         <small id="newGameDateHelp" class="form-text text-muted">This is the date of the game.</small>
     </div>
     <div class="form-group">
         <label for="newGameTime">Game Time</label>
-        <input type="textbox" class="form-control" id="newGameTime" aria-describedby="newGameTimeHelp" placeholder="08:00" formControlName="newGameTime">
+        <input class="form-control" id="newGameTime" aria-describedby="newGameTimeHelp" placeholder="08:00" formControlName="newGameTime">
         <small id="newGameTimeHelp" class="form-text text-muted">This is the time of the game.</small>
     </div>
     <button type="submit" class="btn btn-secondary">Add Game</button>

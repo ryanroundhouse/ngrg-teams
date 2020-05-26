@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <th scope="col">Team Member</th>
-            <th scope="col" *ngFor="let game of dashboardData.games">{{game.date}}</th>
+            <th scope="col" *ngFor="let game of dashboardData.games">{{game.date | date:'shortDate'}}</th>
         </tr>
     </thead>
     <tbody>

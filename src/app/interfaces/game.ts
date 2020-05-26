@@ -1,6 +1,6 @@
 
 export interface Game {
     id: number,
-    date: string,
+    date: Date,
     time: string
 }
