@@ -1,7 +1,7 @@
 
 export interface Attendance {
     gameId: number,
-    date: Date,
+    personId: number,
     presence: string,
     message: string
 }

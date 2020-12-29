@@ -36,7 +36,6 @@ export class DashboardResolverService implements Resolve<any> {
         if (!attendee.attendanceList.find(attendanceItem => attendanceItem.gameId === game.id)){
           let newAttendanceItem : Attendance = {
             gameId: game.id,
-            date: game.date,
             presence: "?",
             message: null
           };

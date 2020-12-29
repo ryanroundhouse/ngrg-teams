@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Team } from '../interfaces/team';
 import { Membership } from '../interfaces/membership';
 import { Router } from '@angular/router';
+import { Role } from '../enums/role';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeamService {
   _team: Team = {
@@ -12,44 +13,41 @@ export class TeamService {
     name: "Ryan's Roughnecks",
     members: [
       {
-        person: 
-        {
+        person: {
           id: 0,
-          name: "Ryan G",
-          email: "rg@ryangraham.ca"
+          name: 'Ryan G',
+          email: 'rg@ryangraham.ca',
         },
-        role: "Captain"
+        role: Role.Captain,
       },
       {
-        person: 
-        {
+        person: {
           id: 1,
-          name: "Katie G",
-          email: "kt@ryangraham.ca"
+          name: 'Katie G',
+          email: 'kt@ryangraham.ca',
         },
-        role: "Member"
+        role: Role.Member,
       },
       {
-        person: 
-        {
+        person: {
           id: 2,
-          name: "Crowley G",
-          email: "crowley@ryangraham.ca"
+          name: 'Crowley G',
+          email: 'crowley@ryangraham.ca',
         },
-        role: "Member"
-      }
-    ]
-  }
-  
-  constructor() { }
+        role: Role.Member,
+      },
+    ],
+  };
 
-  getTeamById(id: number): Team{
+  constructor() {}
+
+  getTeamById(id: number): Team {
     return this._team;
   }
 
-  addTeamMember(newMember: Membership){
+  addTeamMember(newMember: Membership) {
     // set the id of the new
-    if (newMember.person.id === null){
+    if (newMember.person.id === null) {
       newMember.person.id = this._team.members.length;
     }
     console.log(`adding new member ${newMember.person.name}`);
