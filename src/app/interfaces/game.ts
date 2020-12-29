@@ -1,6 +1,6 @@
-
 export interface Game {
-    id: number,
-    date: Date,
-    time: string
+  id: number;
+  teamId: number;
+  date: Date;
+  time: string;
 }

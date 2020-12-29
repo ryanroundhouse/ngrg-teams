@@ -1,2 +1,6 @@
-<team-attendance [dashboardData]="dashboardData" ></team-attendance>
-<team-admin-panel (teamMemberAdded)="teamMemberAddedReceived($event)" (gameAdded)="gameAddedReceived($event)"></team-admin-panel>
+<team-attendance [dashboardData]="dashboardData"></team-attendance>
+<team-admin-panel
+  [memberships]="dashboardData.memberships"
+  (teamMemberAdded)="teamMemberAddedReceived($event)"
+  (gameAdded)="gameAddedReceived($event)"
+></team-admin-panel>

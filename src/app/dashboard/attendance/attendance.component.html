@@ -1,17 +1,26 @@
-<h1>{{dashboardData.team.name}}</h1>
+<h1>{{ dashboardData.teamName }}</h1>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Team Member</th>
-            <th scope="col" *ngFor="let game of dashboardData.games">{{game.date | date:'shortDate'}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let attendance of dashboardData.attendance; let last = last">
-            <td scope="row">{{attendance.person.name}}</td>
-            <td scope="row" *ngFor="let attendanceEntry of attendance.attendanceList">
-                <team-attendance-toggle [personId]="attendance.person.id" [gameId]="attendanceEntry.gameId" [selected]="attendanceEntry.presence" ></team-attendance-toggle>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Team Member</th>
+      <th scope="col" *ngFor="let game of dashboardData.games">
+        {{ game.date | date: "shortDate" }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let member of dashboardData.memberships; let last = last">
+      <td scope="row">{{ member.person.name }}</td>
+      <td
+        scope="row"
+        *ngFor="let attendanceItem of attendancedByMember(member.person.id)"
+      >
+        <team-attendance-toggle
+          [personId]="member.person.id"
+          [gameId]="attendanceItem.gameId"
+          [selected]="attendanceItem.presence"
+        ></team-attendance-toggle>
+      </td>
+    </tr>
+  </tbody>
 </table>
