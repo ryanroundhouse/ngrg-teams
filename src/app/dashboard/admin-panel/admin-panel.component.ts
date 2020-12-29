@@ -1,10 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { TeamService } from 'src/app/services/team.service';
 import { Membership } from 'src/app/interfaces/membership';
 import { Game } from 'src/app/interfaces/game';
-import { GameService } from 'src/app/services/game.service';
 import { Role } from 'src/app/enums/role';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { dtoDashboard } from 'src/app/interfaces/dtoDashboard';
 declare var jQuery: any;
 
 @Component({
@@ -19,11 +19,11 @@ export class AdminPanelComponent implements OnInit {
   teamMemberAdded: EventEmitter<Membership> = new EventEmitter<Membership>();
   @Output()
   gameAdded: EventEmitter<Game> = new EventEmitter<Game>();
+  @Input() memberships: Membership[];
 
   constructor(
     private formBuilder: FormBuilder,
-    public teamService: TeamService,
-    public gameService: GameService
+    public dashboardService: DashboardService
   ) {
     this.newMemberForm = this.formBuilder.group({
       newMemberName: '',
@@ -44,6 +44,7 @@ export class AdminPanelComponent implements OnInit {
         });
       });
     })(jQuery);
+    console.log(`memberships are: ${this.memberships}`);
   }
 
   onSubmitNewGame(newGameData) {
@@ -58,7 +59,7 @@ export class AdminPanelComponent implements OnInit {
       date: gameDate,
       time: newGameData.newGameTime,
     };
-    this.gameService.addGame(newGame);
+    this.dashboardService.addGame(newGame);
     this.gameAdded.emit(newGame);
     this.newGameForm.reset();
   }
@@ -73,7 +74,7 @@ export class AdminPanelComponent implements OnInit {
       },
       role: Role.Member,
     };
-    this.teamService.addTeamMember(newMember);
+    this.dashboardService.addMember(newMember);
     this.teamMemberAdded.emit(newMember);
     this.newMemberForm.reset();
   }

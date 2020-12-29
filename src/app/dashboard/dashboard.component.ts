@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../interfaces/game';
-import { DashboardData } from '../interfaces/dashboard-data';
 import { DashboardResolverService } from '../resolvers/dashboard-resolver.service';
 import { Membership } from '../interfaces/membership';
+import { dtoDashboard } from '../interfaces/dtoDashboard';
 
 @Component({
   selector: 'team-dashboard',
@@ -11,7 +11,7 @@ import { Membership } from '../interfaces/membership';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  dashboardData: DashboardData;
+  dashboardData: dtoDashboard;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,9 +23,6 @@ export class DashboardComponent implements OnInit {
   }
 
   teamMemberAddedReceived(newMember: Membership) {
-    console.log(
-      `team member added event received.  Now there should be ${this.dashboardData.team.members.length}`
-    );
     this.dashboardData = this.dashboardResolver.generateDashboardData();
   }
 

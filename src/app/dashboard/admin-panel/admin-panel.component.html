@@ -2,9 +2,9 @@
 
 <label for="viewAs">Masquerade as: </label>
 <select name="viewAs">
-  <option value="Ryan G">Ryan G</option>
-  <option value="Katie G">Katie G</option>
-  <option value="Crowley G">Crowley G</option>
+  <option *ngFor="let member of memberships" [value]="member.person.name">
+    {{ member.person.name }}
+  </option>
 </select>
 
 <form [formGroup]="newGameForm" (ngSubmit)="onSubmitNewGame(newGameForm.value)">

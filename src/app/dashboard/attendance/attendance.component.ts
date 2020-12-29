@@ -1,18 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DashboardData } from 'src/app/interfaces/dashboard-data';
+import { Attendance } from 'src/app/interfaces/attendance';
+import { dtoDashboard } from 'src/app/interfaces/dtoDashboard';
 
 @Component({
   selector: 'team-attendance',
   templateUrl: './attendance.component.html',
-  styleUrls: ['./attendance.component.scss']
+  styleUrls: ['./attendance.component.scss'],
 })
 export class AttendanceComponent implements OnInit {
-  @Input() dashboardData: DashboardData;
+  @Input() dashboardData: dtoDashboard;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.debug(this.dashboardData);
+  ngOnInit(): void {}
+
+  attendancedByMember(id: number): Attendance[] {
+    return this.dashboardData.attendances.filter(
+      (attendee) => attendee.personId === id
+    );
   }
-
 }

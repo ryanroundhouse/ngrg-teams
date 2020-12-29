@@ -1,67 +1,53 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { TeamService } from '../services/team.service';
-import { AttendanceService } from '../services/attendance.service';
-import { GameService } from '../services/game.service';
-import { DashboardData } from '../interfaces/dashboard-data';
 import { Attendance } from '../interfaces/attendance';
-import { PersonAttendance } from '../interfaces/person-attendance';
+import { DashboardService } from '../services/dashboard.service';
+import { dtoDashboard } from '../interfaces/dtoDashboard';
+import { Presence } from '../enums/presence';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardResolverService implements Resolve<any> {
+  constructor(private dashboardService: DashboardService) {}
 
-  constructor(private teamService: TeamService, private attendanceService: AttendanceService, private gameService: GameService) { }
-
-  generateDashboardData(): DashboardData{
-    let team = this.teamService.getTeamById(0);
-    let games = this.gameService.getGamesByTeamId(0);
-    let attendance = this.attendanceService.getAttendanceByTeamId(0);
-
-    //stub out missing team members
-    team.members.forEach(member => {
-      if (!attendance.find(attendee => member.person.id === attendee.person.id)){
-        let missingAttendance : PersonAttendance = {
-          person: member.person,
-          attendanceList: []
-        }
-        attendance.push(missingAttendance);
-      }
-    });
-
+  generateDashboardData(): dtoDashboard {
     //stub out missing attendance records
-    games.forEach(game => {
-      attendance.forEach(attendee => {
-        if (!attendee.attendanceList.find(attendanceItem => attendanceItem.gameId === game.id)){
-          let newAttendanceItem : Attendance = {
-            gameId: game.id,
-            presence: "?",
-            message: null
+    let memberIds = this.dashboardService._dashboardData.memberships.map(
+      (member) => member.person.id
+    );
+    let gameIds = this.dashboardService._dashboardData.games.map(
+      (game) => game.id
+    );
+
+    memberIds.forEach((memberId) => {
+      gameIds.forEach((gameId) => {
+        let foundItem = this.dashboardService._dashboardData.attendances.find(
+          (attendanceItem) =>
+            attendanceItem.gameId == gameId &&
+            attendanceItem.personId == memberId
+        );
+        if (foundItem === undefined) {
+          let newAttendanceItem: Attendance = {
+            gameId: gameId,
+            personId: memberId,
+            presence: Presence.Unknown,
+            message: null,
           };
-          attendee.attendanceList.push(newAttendanceItem);
+          this.dashboardService._dashboardData.attendances.push(
+            newAttendanceItem
+          );
         }
-      })
+      });
     });
 
-    //sort all attendance by date
-    attendance.forEach(attendee => {
-      attendee.attendanceList.sort((a,b) => a.date.getTime() - b.date.getTime());
-    })
-
-    //sort all games by date
-    games.sort((a,b) => a.date.getTime() - b.date.getTime());
-
-    let dashboardData : DashboardData = {
-      team: team,
-      games: games,
-      attendance: attendance
-    }
-
-    return dashboardData;
+    return this.dashboardService.getDashboardData();
   }
 
-  resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
+  resolve(
+    route: import('@angular/router').ActivatedRouteSnapshot,
+    state: import('@angular/router').RouterStateSnapshot
+  ) {
     return this.generateDashboardData();
   }
 }
