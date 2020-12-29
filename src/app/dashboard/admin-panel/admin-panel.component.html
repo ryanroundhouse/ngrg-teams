@@ -1,31 +1,77 @@
 <h3>Team Captain Controls</h3>
 
+<label for="viewAs">Masquerade as: </label>
+<select name="viewAs">
+  <option *ngFor="let member of memberships" [value]="member.person.name">
+    {{ member.person.name }}
+  </option>
+</select>
+
 <form [formGroup]="newGameForm" (ngSubmit)="onSubmitNewGame(newGameForm.value)">
-    <h4>Add a new Game</h4>
-    <div class="form-group date">
-        <label for="newGameDate">Game Date</label>
-        <input type="textbox" class="form-control date" data-provide="datepicker" id="newGameDate" aria-describedby="newGameDateHelp" placeholder="5/31/2020" formControlName="newGameDate">
-        <small id="newGameDateHelp" class="form-text text-muted">This is the date of the game.</small>
-    </div>
-    <div class="form-group">
-        <label for="newGameTime">Game Time</label>
-        <input class="form-control" id="newGameTime" aria-describedby="newGameTimeHelp" placeholder="08:00" formControlName="newGameTime">
-        <small id="newGameTimeHelp" class="form-text text-muted">This is the time of the game.</small>
-    </div>
-    <button type="submit" class="btn btn-secondary">Add Game</button>
+  <h4>Add a new Game</h4>
+  <div class="form-group date">
+    <label for="newGameDate">Game Date</label>
+    <input
+      type="textbox"
+      class="form-control date"
+      data-provide="datepicker"
+      id="newGameDate"
+      aria-describedby="newGameDateHelp"
+      placeholder="5/31/2020"
+      formControlName="newGameDate"
+    />
+    <small id="newGameDateHelp" class="form-text text-muted"
+      >This is the date of the game.</small
+    >
+  </div>
+  <div class="form-group">
+    <label for="newGameTime">Game Time</label>
+    <input
+      class="form-control"
+      id="newGameTime"
+      aria-describedby="newGameTimeHelp"
+      placeholder="08:00"
+      formControlName="newGameTime"
+    />
+    <small id="newGameTimeHelp" class="form-text text-muted"
+      >This is the time of the game.</small
+    >
+  </div>
+  <button type="submit" class="btn btn-secondary">Add Game</button>
 </form>
 
-<form [formGroup]="newMemberForm" (ngSubmit)="onSubmitNewMember(newMemberForm.value)">
-    <h4>Add a new Team Member</h4>
-    <div class="form-group">
-        <label for="newMemberName">New Member Name</label>
-        <input type="textbox" class="form-control" id="newMemberName" aria-describedby="newMemberNameHelp" placeholder="Jane Smith" formControlName="newMemberName">
-        <small id="newMemberNameHelp" class="form-text text-muted">This will be the name displayed for this team member.</small>
-    </div>
-    <div class="form-group">
-        <label for="newMemberEmail">New Member Email</label>
-        <input type="email" class="form-control" id="newMemberEmail" aria-describedby="newMemberEmailHelp" placeholder="name@example.com" formControlName="newMemberEmail">
-        <small id="newMemberEmailHelp" class="form-text text-muted">This is the email address to contact this team member.</small>
-    </div>
-    <button type="submit" class="btn btn-secondary">Add Team Member</button>
+<form
+  [formGroup]="newMemberForm"
+  (ngSubmit)="onSubmitNewMember(newMemberForm.value)"
+>
+  <h4>Add a new Team Member</h4>
+  <div class="form-group">
+    <label for="newMemberName">New Member Name</label>
+    <input
+      type="textbox"
+      class="form-control"
+      id="newMemberName"
+      aria-describedby="newMemberNameHelp"
+      placeholder="Jane Smith"
+      formControlName="newMemberName"
+    />
+    <small id="newMemberNameHelp" class="form-text text-muted"
+      >This will be the name displayed for this team member.</small
+    >
+  </div>
+  <div class="form-group">
+    <label for="newMemberEmail">New Member Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="newMemberEmail"
+      aria-describedby="newMemberEmailHelp"
+      placeholder="name@example.com"
+      formControlName="newMemberEmail"
+    />
+    <small id="newMemberEmailHelp" class="form-text text-muted"
+      >This is the email address to contact this team member.</small
+    >
+  </div>
+  <button type="submit" class="btn btn-secondary">Add Team Member</button>
 </form>

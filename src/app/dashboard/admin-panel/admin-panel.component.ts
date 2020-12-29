@@ -1,15 +1,16 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { TeamService } from 'src/app/services/team.service';
 import { Membership } from 'src/app/interfaces/membership';
 import { Game } from 'src/app/interfaces/game';
-import { GameService } from 'src/app/services/game.service';
+import { Role } from 'src/app/enums/role';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { dtoDashboard } from 'src/app/interfaces/dtoDashboard';
 declare var jQuery: any;
 
 @Component({
   selector: 'team-admin-panel',
   templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.scss']
+  styleUrls: ['./admin-panel.component.scss'],
 })
 export class AdminPanelComponent implements OnInit {
   public newMemberForm;
@@ -18,59 +19,63 @@ export class AdminPanelComponent implements OnInit {
   teamMemberAdded: EventEmitter<Membership> = new EventEmitter<Membership>();
   @Output()
   gameAdded: EventEmitter<Game> = new EventEmitter<Game>();
+  @Input() memberships: Membership[];
 
-  constructor(private formBuilder: FormBuilder, public teamService: TeamService, public gameService: GameService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public dashboardService: DashboardService
+  ) {
     this.newMemberForm = this.formBuilder.group({
       newMemberName: '',
-      newMemberEmail: ''
+      newMemberEmail: '',
     });
     this.newGameForm = this.formBuilder.group({
       newGameTime: '',
-      newGameDate: ''
+      newGameDate: '',
     });
   }
 
   ngOnInit(): void {
     (function ($) {
-      $(document).ready(function(){
+      $(document).ready(function () {
         $('#newGameDate').datepicker({
-          "autoclose": true,
-          "assumeNearbyYear": true
-         });
+          autoclose: true,
+          assumeNearbyYear: true,
+        });
       });
     })(jQuery);
+    console.log(`memberships are: ${this.memberships}`);
   }
 
-  onSubmitNewGame(newGameData){
+  onSubmitNewGame(newGameData) {
     let gameDate: Date = null;
-    gameDate = (function ($){
+    gameDate = (function ($) {
       return $('#newGameDate').datepicker('getDate');
-      //return ((longDate.getMonth() + 1) + "/" +  longDate.getDate() + "/" +  longDate.getFullYear());
     })(jQuery);
     console.log(newGameData);
-    let newGame : Game = {
+    let newGame: Game = {
       id: null,
+      teamId: null,
       date: gameDate,
-      time: newGameData.newGameTime
+      time: newGameData.newGameTime,
     };
-    this.gameService.addGame(newGame);
+    this.dashboardService.addGame(newGame);
     this.gameAdded.emit(newGame);
     this.newGameForm.reset();
   }
 
-  onSubmitNewMember(newMemberData){
+  onSubmitNewMember(newMemberData) {
     console.log(newMemberData);
-    let newMember : Membership = {
+    let newMember: Membership = {
       person: {
         id: null,
         name: newMemberData.newMemberName,
-        email: newMemberData.newMemberEmail
+        email: newMemberData.newMemberEmail,
       },
-      role: "Member"
-    }
-    this.teamService.addTeamMember(newMember);
+      role: Role.Member,
+    };
+    this.dashboardService.addMember(newMember);
     this.teamMemberAdded.emit(newMember);
     this.newMemberForm.reset();
   }
-
 }

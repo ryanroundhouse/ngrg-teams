@@ -1,7 +1,8 @@
+import { Presence } from '../enums/presence';
 
 export interface Attendance {
-    gameId: number,
-    date: Date,
-    presence: string,
-    message: string
+  gameId: number;
+  personId: number;
+  presence: Presence;
+  message: string;
 }
