@@ -7,17 +7,21 @@ import { DashboardService } from 'src/app/services/dashboard.service';
   templateUrl: './attendance-toggle.component.html',
   styleUrls: ['./attendance-toggle.component.scss'],
 })
-export class AttendanceToggleComponent {
+export class AttendanceToggleComponent implements OnInit {
   @Input()
   personId: number;
   @Input()
   gameId: number;
   @Input()
   selected: Presence;
+  @Input() editable: boolean;
 
   constructor(private dashboardService: DashboardService) {}
 
+  ngOnInit(): void {}
+
   attendanceSelected(event) {
+    console.log(`attendance-toggle editable is ${this.editable}`);
     let presence = Presence.Unknown;
     if (event.srcElement.value === 'In') {
       presence = Presence.In;

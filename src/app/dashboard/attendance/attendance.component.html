@@ -19,6 +19,7 @@
           [personId]="member.person.id"
           [gameId]="attendanceItem.gameId"
           [selected]="attendanceItem.presence"
+          [editable]="checkIdentityAllowed(member.person.id)"
         ></team-attendance-toggle>
       </td>
     </tr>

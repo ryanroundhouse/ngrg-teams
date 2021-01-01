@@ -5,6 +5,8 @@ import { Game } from 'src/app/interfaces/game';
 import { Role } from 'src/app/enums/role';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { dtoDashboard } from 'src/app/interfaces/dtoDashboard';
+import { dtoIdentity } from 'src/app/interfaces/dtoIdentity';
+import { IdentityService } from 'src/app/services/identity.service';
 declare var jQuery: any;
 
 @Component({
@@ -20,10 +22,12 @@ export class AdminPanelComponent implements OnInit {
   @Output()
   gameAdded: EventEmitter<Game> = new EventEmitter<Game>();
   @Input() memberships: Membership[];
+  @Input() identityData: dtoIdentity;
 
   constructor(
     private formBuilder: FormBuilder,
-    public dashboardService: DashboardService
+    public dashboardService: DashboardService,
+    public identityService: IdentityService
   ) {
     this.newMemberForm = this.formBuilder.group({
       newMemberName: '',
@@ -77,5 +81,10 @@ export class AdminPanelComponent implements OnInit {
     this.dashboardService.addMember(newMember);
     this.teamMemberAdded.emit(newMember);
     this.newMemberForm.reset();
+  }
+
+  onMasqueradeChange(newPersonId) {
+    console.log(`new personId for identity: ${newPersonId}`);
+    this.identityService.updateIdentity(newPersonId);
   }
 }

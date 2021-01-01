@@ -4,12 +4,21 @@ import { Attendance } from '../interfaces/attendance';
 import { DashboardService } from '../services/dashboard.service';
 import { dtoDashboard } from '../interfaces/dtoDashboard';
 import { Presence } from '../enums/presence';
+import { dtoIdentity } from '../interfaces/dtoIdentity';
+import { IdentityService } from '../services/identity.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardResolverService implements Resolve<any> {
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private identityService: IdentityService
+  ) {}
+
+  generateIdentityData(): dtoIdentity {
+    return this.identityService.getIdentity();
+  }
 
   generateDashboardData(): dtoDashboard {
     //stub out missing attendance records

@@ -4,6 +4,8 @@ import { Game } from '../interfaces/game';
 import { DashboardResolverService } from '../resolvers/dashboard-resolver.service';
 import { Membership } from '../interfaces/membership';
 import { dtoDashboard } from '../interfaces/dtoDashboard';
+import { IdentityService } from '../services/identity.service';
+import { dtoIdentity } from '../interfaces/dtoIdentity';
 
 @Component({
   selector: 'team-dashboard',
@@ -12,6 +14,7 @@ import { dtoDashboard } from '../interfaces/dtoDashboard';
 })
 export class DashboardComponent implements OnInit {
   dashboardData: dtoDashboard;
+  identityData: dtoIdentity;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,6 +23,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.dashboardData = this.dashboardResolver.generateDashboardData();
+    this.identityData = this.dashboardResolver.generateIdentityData();
   }
 
   teamMemberAddedReceived(newMember: Membership) {

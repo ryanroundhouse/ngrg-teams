@@ -1,8 +1,8 @@
 <h3>Team Captain Controls</h3>
 
 <label for="viewAs">Masquerade as: </label>
-<select name="viewAs">
-  <option *ngFor="let member of memberships" [value]="member.person.name">
+<select name="viewAs" (change)="onMasqueradeChange($event.target.value)">
+  <option *ngFor="let member of memberships" [value]="member.person.id">
     {{ member.person.name }}
   </option>
 </select>

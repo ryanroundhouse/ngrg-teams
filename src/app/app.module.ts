@@ -15,15 +15,10 @@ import { AttendanceToggleComponent } from './dashboard/attendance/attendance-tog
     DashboardComponent,
     AttendanceComponent,
     AdminPanelComponent,
-    AttendanceToggleComponent
+    AttendanceToggleComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

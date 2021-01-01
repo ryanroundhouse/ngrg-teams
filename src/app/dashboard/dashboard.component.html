@@ -1,6 +1,10 @@
-<team-attendance [dashboardData]="dashboardData"></team-attendance>
+<team-attendance
+  [dashboardData]="dashboardData"
+  [identityData]="identityData"
+></team-attendance>
 <team-admin-panel
   [memberships]="dashboardData.memberships"
+  [identityData]="identityData"
   (teamMemberAdded)="teamMemberAddedReceived($event)"
   (gameAdded)="gameAddedReceived($event)"
 ></team-admin-panel>

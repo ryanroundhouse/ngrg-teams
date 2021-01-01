@@ -9,6 +9,7 @@
     value="In"
     [checked]="selected == 0"
     (change)="attendanceSelected($event)"
+    [disabled]="!editable"
   />
   <label for="in-{{ personId }}-{{ gameId }}" onclick="">IN</label>
 
@@ -20,6 +21,7 @@
     value="Unknown"
     [checked]="selected == 2"
     (change)="attendanceSelected($event)"
+    [disabled]="!editable"
   />
   <label for="unknown-{{ personId }}-{{ gameId }}" class="disabled" onclick="">
     ?
@@ -33,6 +35,7 @@
     value="Out"
     [checked]="selected == 1"
     (change)="attendanceSelected($event)"
+    [disabled]="!editable"
   />
   <label for="out-{{ personId }}-{{ gameId }}" onclick="">OUT</label>
 </div>
