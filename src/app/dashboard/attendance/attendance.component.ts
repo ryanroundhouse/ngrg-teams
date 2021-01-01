@@ -27,12 +27,10 @@ export class AttendanceComponent implements OnInit {
     const adminIds = this.dashboardData.memberships
       .filter((membership) => membership.role === Role.Captain)
       .map((adminIdentity) => adminIdentity.person.id);
-    console.log(`adminIds: ${adminIds} vs ${this.identityData.personId}`);
     const editSelf = personId == this.identityData.personId;
     const isAdmin = adminIds.some(
       (adminId) => adminId == this.identityData.personId
     );
-    console.log(`editSelf: ${editSelf} and isAdmin: ${isAdmin}`);
     return editSelf || isAdmin;
   }
 }

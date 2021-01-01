@@ -75,3 +75,37 @@
   </div>
   <button type="submit" class="btn btn-secondary">Add Team Member</button>
 </form>
+
+<h4>Remove a game</h4>
+<div class="form-group">
+  <form
+    [formGroup]="removeGameForm"
+    (ngSubmit)="onRemoveGame(removeGameForm.value)"
+  >
+    <label for="removeGame">Remove Game:</label>
+    <select name="removeGame" formControlName="gameId">
+      <option *ngFor="let game of games" [ngValue]="game.id">
+        {{ game.date | date: "shortDate" }}
+      </option>
+    </select>
+    <br />
+    <button type="submit" class="btn btn-secondary">Remove Game</button>
+  </form>
+</div>
+
+<h4>Remove a Person</h4>
+<div class="form-group">
+  <form
+    [formGroup]="removePersonForm"
+    (ngSubmit)="onRemovePerson(removePersonForm.value)"
+  >
+    <label for="removePerson">Remove Person:</label>
+    <select name="removePerson" formControlName="personId">
+      <option *ngFor="let member of memberships" [ngValue]="member.person.id">
+        {{ member.person.name }}
+      </option>
+    </select>
+    <br />
+    <button type="submit" class="btn btn-secondary">Remove Person</button>
+  </form>
+</div>

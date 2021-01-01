@@ -21,7 +21,6 @@ export class AttendanceToggleComponent implements OnInit {
   ngOnInit(): void {}
 
   attendanceSelected(event) {
-    console.log(`attendance-toggle editable is ${this.editable}`);
     let presence = Presence.Unknown;
     if (event.srcElement.value === 'In') {
       presence = Presence.In;

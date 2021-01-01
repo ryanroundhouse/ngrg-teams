@@ -5,6 +5,7 @@
 <team-admin-panel
   [memberships]="dashboardData.memberships"
   [identityData]="identityData"
+  [games]="dashboardData.games"
   (teamMemberAdded)="teamMemberAddedReceived($event)"
   (gameAdded)="gameAddedReceived($event)"
 ></team-admin-panel>

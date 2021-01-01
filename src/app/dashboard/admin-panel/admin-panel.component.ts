@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Membership } from 'src/app/interfaces/membership';
 import { Game } from 'src/app/interfaces/game';
 import { Role } from 'src/app/enums/role';
@@ -17,12 +17,15 @@ declare var jQuery: any;
 export class AdminPanelComponent implements OnInit {
   public newMemberForm;
   public newGameForm;
+  public removeGameForm;
+  public removePersonForm;
   @Output()
   teamMemberAdded: EventEmitter<Membership> = new EventEmitter<Membership>();
   @Output()
   gameAdded: EventEmitter<Game> = new EventEmitter<Game>();
   @Input() memberships: Membership[];
   @Input() identityData: dtoIdentity;
+  @Input() games: Game[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +39,12 @@ export class AdminPanelComponent implements OnInit {
     this.newGameForm = this.formBuilder.group({
       newGameTime: '',
       newGameDate: '',
+    });
+    this.removeGameForm = this.formBuilder.group({
+      gameId: [null, [Validators.required]],
+    });
+    this.removePersonForm = this.formBuilder.group({
+      personId: [null, [Validators.required]],
     });
   }
 
@@ -83,8 +92,21 @@ export class AdminPanelComponent implements OnInit {
     this.newMemberForm.reset();
   }
 
+  onRemoveGame(removeGameFormData) {
+    console.log(removeGameFormData);
+    if (removeGameFormData != null) {
+      this.dashboardService.removeGame(removeGameFormData.gameId);
+    }
+  }
+
+  onRemovePerson(removePersonFormData) {
+    console.log(removePersonFormData);
+    if (removePersonFormData != null) {
+      this.dashboardService.removePerson(removePersonFormData.personId);
+    }
+  }
+
   onMasqueradeChange(newPersonId) {
-    console.log(`new personId for identity: ${newPersonId}`);
     this.identityService.updateIdentity(newPersonId);
   }
 }
