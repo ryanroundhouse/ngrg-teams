@@ -4,77 +4,19 @@ import { Role } from '../enums/role';
 import { dtoDashboard } from '../interfaces/dtoDashboard';
 import { Game } from '../interfaces/game';
 import { Membership } from '../interfaces/membership';
+import { HttpClient } from '@angular/common/http';
+import { Attendance } from '../interfaces/attendance';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  _dashboardData: dtoDashboard = {
-    teamId: 0,
-    teamName: "Ryan's Roughnecks",
-    memberships: [
-      {
-        person: {
-          id: 0,
-          name: 'Ryan',
-          email: 'rg@ryangraham.ca',
-        },
-        role: Role.Captain,
-      },
-      {
-        person: {
-          id: 1,
-          name: 'Katie',
-          email: 'kt@ryangraham.ca',
-        },
-        role: Role.Member,
-      },
-      {
-        person: {
-          id: 2,
-          name: 'Crowley',
-          email: 'sk@ryangraham.ca',
-        },
-        role: Role.Member,
-      },
-    ],
-    games: [
-      {
-        id: 0,
-        teamId: 0,
-        date: new Date(
-          'Tue May 12 2020 00:00:00 GMT-0400 (Eastern Daylight Time)'
-        ),
-        time: '8:00',
-      },
-      {
-        id: 1,
-        teamId: 0,
-        date: new Date(
-          'Tue May 19 2020 00:00:00 GMT-0400 (Eastern Daylight Time)'
-        ),
-        time: '8:00',
-      },
-    ],
-    attendances: [
-      {
-        gameId: 0,
-        personId: 0,
-        presence: Presence.In,
-        message: null,
-      },
-      {
-        gameId: 0,
-        personId: 1,
-        presence: Presence.Out,
-        message: null,
-      },
-    ],
-  };
-  constructor() {}
+  _dashboardData: dtoDashboard;
+  constructor(private http: HttpClient) {}
 
-  getDashboardData() {
-    return this._dashboardData;
+  getDashboardData(): Observable<any> {
+    return this.http.get('api/dashboard/team/2');
   }
 
   addGame(game: Game) {

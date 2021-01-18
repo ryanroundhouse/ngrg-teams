@@ -22,18 +22,21 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dashboardData = this.dashboardResolver.generateDashboardData();
     this.identityData = this.dashboardResolver.generateIdentityData();
+    this.activatedRoute.data.subscribe((data) => {
+      console.log(`Data: ${JSON.stringify(data['dashboardData'])}`);
+      this.dashboardData = data['dashboardData'];
+    });
   }
 
   teamMemberAddedReceived(newMember: Membership) {
-    this.dashboardData = this.dashboardResolver.generateDashboardData();
+    //this.dashboardData = this.dashboardResolver.generateDashboardData();
   }
 
   gameAddedReceived(newGame: Game) {
     console.log(
       `game added event received.  Now there should be ${this.dashboardData.games.length}`
     );
-    this.dashboardData = this.dashboardResolver.generateDashboardData();
+    //this.dashboardData = this.dashboardResolver.generateDashboardData();
   }
 }
